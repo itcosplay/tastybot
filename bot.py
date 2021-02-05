@@ -1,36 +1,19 @@
-from aiogram import Bot, types
-from aiogram.dispatcher import Dispatcher
-from aiogram.utils import executor
+import asyncio
 
-from config import TOKEN
-import keyboards as kb
+from aiogram import Bot, Dispatcher, executor
 
-
-bot = Bot(token=TOKEN)
-
-dp = Dispatcher(bot)
-
-@dp.message_handler(commands=['start'])
-async def process_start_command(message: types.Message):
-    await bot.send_message('hello!')
+from config import BOT_TOKEN
 
 
-# @dp.message_handler(commands=['start'])
-# async def process_start_command(message: types.Message):
-#     await message.reply('Привет!', reply_markup=kb.greet_kb)
-
-
-# @dp.message_handler(commands=['help'])
-# async def process_help_command(message: types.Message):
-#     await message.reply("Напиши мне что-нибудь, и я отпрпавлю этот текст тебе в ответ!")
-
-
-# @dp.message_handler()
-# async def echo_message(msg: types.Message):
-#     await bot.send_message(msg.from_user.id, msg.text)
-
+loop = asyncio.get_event_loop()
+bot = Bot(BOT_TOKEN, parse_mode='HTML')
+dp = Dispatcher(bot, loop=loop)
 
 if __name__ == '__main__':
-    executor.start_polling(dp)
+    from handlers import dp, send_to_admin, close_bot_message
 
-    
+    executor.start_polling (
+        dp,
+        on_startup=send_to_admin,
+        on_shutdown=close_bot_message
+    )

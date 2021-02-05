@@ -2,7 +2,7 @@ import httplib2
 import googleapiclient.discovery
 from oauth2client.service_account import ServiceAccountCredentials
 
-from service_google_api import google_service, spreadsheet_id
+#from service_google_api import google_service, spreadsheet_id
 
 CREDENTIALS_FILE = 'creds.json'
 # ID Google Sheets документа (можно взять из его URL)
@@ -17,16 +17,10 @@ def google_service():
         ]
     )
     httpAuth = credentials.authorize(httplib2.Http())
-    service = googleapiclient.discovery.build('sheets', 'v4', http = httpAuth)
+    service = googleapiclient.discovery.build (
+        'sheets',
+        'v4',
+        http = httpAuth
+    )
     
     return service
-
-
-#### Пример чтения файла
-# values = service.spreadsheets().values().get (
-#     spreadsheetId=spreadsheet_id,
-#     range='A1:B1',
-#     majorDimension='COLUMNS'
-# ).execute()
-# pprint(values)
-

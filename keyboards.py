@@ -5,18 +5,22 @@ from aiogram.types import ReplyKeyboardRemove, \
     InlineKeyboardButton
 
 
-button1 = KeyboardButton('админ панель')
-button2 = KeyboardButton('инф об смс')
-button3 = KeyboardButton('заявка')
-button4 = KeyboardButton('в работе')
-button5 = KeyboardButton('заказать пропуск')
-button6 = KeyboardButton('активные пропуска')
-button7 = KeyboardButton('пропуска за текущие сутки')
-
-markup = ReplyKeyboardMarkup(resize_keyboard=True).row (
-    button1, button2
-).row (
-    button3, button4
-).row (
-    button5, button6
-).add(button7)
+main_menu = ReplyKeyboardMarkup (
+    keyboard = [
+        [
+            KeyboardButton(text='управление'),
+            KeyboardButton(text='информация о смс')
+        ],
+        [
+            KeyboardButton(text='создать заявку'),
+            KeyboardButton(text='в работе')
+        ],
+        [
+            KeyboardButton(text='заказать пропуск'),
+            KeyboardButton(text='активные пропуска')
+        ],
+        [
+            KeyboardButton(text='пропуска за текущие сутки'),
+        ]
+    ]
+)
